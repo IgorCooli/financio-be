@@ -1,5 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://financio:rLuadVlqMLa5vYcS@cluster0.ddayyi8.mongodb.net/?retryWrites=true&w=majority
+      username: financio
+      password: rLuadVlqMLa5vYcS
+      uri: mongodb+srv://${spring.data.mongodb.username}:${spring.data.mongodb.password}@cluster0.ddayyi8.mongodb.net/?retryWrites=true&w=majority
       database: financio
