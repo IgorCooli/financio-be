@@ -4,7 +4,6 @@ import com.io.financio.dataprovider.model.UserDocument;
 import com.io.financio.dataprovider.repository.UserRepository;
 import com.io.financio.domain.dataprovider.login.LoginDataProvider;
 import com.io.financio.domain.model.User;
-import com.io.financio.domain.model.request.LoginUserRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +16,11 @@ public class LoginDataProviderImpl implements LoginDataProvider {
     }
 
     @Override
-    public User execute(LoginUserRequest request) {
-        var userDocument = repository.findByUsernameAndPassword(request.getUsername(), request.getPassword());
+    public User execute(String username, String password) {
+        var optDocument = repository.findByUsernameAndPassword(username, password);
 
-        return buildUser(userDocument);
+        //TODO ajustar o retorno abaixo
+        return buildUser(optDocument.get());
     }
 
     private User buildUser(UserDocument document) {

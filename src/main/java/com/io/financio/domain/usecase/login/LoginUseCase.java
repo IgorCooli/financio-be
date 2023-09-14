@@ -15,6 +15,6 @@ public class LoginUseCase {
 
     public String execute(LoginUserRequest userRequest) {
         //TODO criar token baseado no usuário encontrado e retornar
-        return dataProvider.execute(userRequest).toString();
+        return dataProvider.execute(userRequest.getUsername(), userRequest.getPassword()).toString();
     }
 }
