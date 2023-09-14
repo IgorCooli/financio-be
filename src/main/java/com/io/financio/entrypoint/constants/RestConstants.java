@@ -5,5 +5,6 @@ public class RestConstants {
     public final static String BASE_API = "/api";
     public final static String HELLO_URL = "/hello";
     public final static String LOGIN_URL = "/login";
+    public final static String REGISTER_URL = "/register";
 
 }
