@@ -1,6 +1,6 @@
-package com.io.financio.domain.usecase.login;
+package com.io.financio.domain.usecase.authenticate;
 
-import com.io.financio.domain.dataprovider.login.LoginDataProvider;
+import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
 import com.io.financio.domain.model.request.LoginUserRequest;
 import com.io.financio.domain.service.hashing.PasswordDigest;
 import org.springframework.stereotype.Service;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class LoginUseCase {
+public class AuthenticateUseCase {
 
-    private final LoginDataProvider dataProvider;
+    private final AuthenticateDataProvider dataProvider;
     private final PasswordDigest passwordDigest;
 
-    public LoginUseCase(LoginDataProvider dataProvider, PasswordDigest passwordDigest) {
+    public AuthenticateUseCase(AuthenticateDataProvider dataProvider, PasswordDigest passwordDigest) {
         this.dataProvider = dataProvider;
         this.passwordDigest = passwordDigest;
     }

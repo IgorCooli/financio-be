@@ -1,7 +1,7 @@
-package com.io.financio.entrypoint.login;
+package com.io.financio.entrypoint.authenticate;
 
 import com.io.financio.domain.model.request.LoginUserRequest;
-import com.io.financio.domain.usecase.login.LoginUseCase;
+import com.io.financio.domain.usecase.authenticate.AuthenticateUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +13,11 @@ import static com.io.financio.entrypoint.constants.RestConstants.LOGIN_URL;
 
 @RestController
 @RequestMapping(BASE_API)
-public class LoginController {
+public class AuthenticateController {
 
-    private final LoginUseCase useCase;
+    private final AuthenticateUseCase useCase;
 
-    public LoginController(LoginUseCase useCase) {
+    public AuthenticateController(AuthenticateUseCase useCase) {
         this.useCase = useCase;
     }
 
