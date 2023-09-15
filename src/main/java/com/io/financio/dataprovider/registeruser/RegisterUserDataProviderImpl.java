@@ -24,7 +24,7 @@ public class RegisterUserDataProviderImpl implements RegisterUserDataProvider {
 
     private UserDocument buildDocument(User user) {
         return UserDocument.builder()
-                .username(user.getId())
+                .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
                 .lastName(user.getLastName())
