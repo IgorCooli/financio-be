@@ -13,7 +13,7 @@ java {
 
 jar {
     manifest {
-        attributes 'FinancioApplication-Class': 'com.io.financio.FinancioApplication'
+        attributes 'Main-FinancioApplication': 'com.io.financio.FinancioApplication'
     }
 }
 
