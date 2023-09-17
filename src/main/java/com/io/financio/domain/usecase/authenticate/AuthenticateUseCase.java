@@ -18,14 +18,12 @@ public class AuthenticateUseCase {
     private final PasswordDigest passwordDigest;
     private final CreateSessionService sessionService;
     private final RsaEncryptService encryptService;
-    private final ObjectMapper mapper;
 
-    public AuthenticateUseCase(AuthenticateDataProvider dataProvider, PasswordDigest passwordDigest, CreateSessionService sessionService, RsaEncryptService encryptService, ObjectMapper mapper) {
+    public AuthenticateUseCase(AuthenticateDataProvider dataProvider, PasswordDigest passwordDigest, CreateSessionService sessionService, RsaEncryptService encryptService) {
         this.dataProvider = dataProvider;
         this.passwordDigest = passwordDigest;
         this.sessionService = sessionService;
         this.encryptService = encryptService;
-        this.mapper = mapper;
     }
 
     public String execute(LoginUserRequest userRequest) {
@@ -34,9 +32,8 @@ public class AuthenticateUseCase {
 
         var user = dataProvider.execute(username, encryptedPassword);
         var session = sessionService.execute(user);
-        var token = buildToken(session);
 
-        return token;
+        return buildToken(session);
     }
 
     private String buildToken(Session session) {

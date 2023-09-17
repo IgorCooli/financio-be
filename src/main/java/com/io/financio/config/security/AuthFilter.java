@@ -1,6 +1,5 @@
 package com.io.financio.config.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.io.financio.config.security.dataprovider.ValidateSessionDataProvider;
 import com.io.financio.domain.service.criptography.RsaDecryptService;
 import jakarta.servlet.FilterChain;
@@ -19,12 +18,10 @@ public class AuthFilter extends GenericFilterBean {
 
     private final RsaDecryptService decryptService;
     private final ValidateSessionDataProvider sessionDataProvider;
-    private final ObjectMapper mapper;
 
-    public AuthFilter(RsaDecryptService decryptService, ValidateSessionDataProvider sessionDataProvider, ObjectMapper mapper) {
+    public AuthFilter(RsaDecryptService decryptService, ValidateSessionDataProvider sessionDataProvider) {
         this.decryptService = decryptService;
         this.sessionDataProvider = sessionDataProvider;
-        this.mapper = mapper;
     }
 
     @Override
