@@ -4,11 +4,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
+import javax.xml.bind.DatatypeConverter;
 import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 @Service
-public class RsaDecryptService extends AbstractKeyParser {
+public class RsaDecryptService {
 
     private final String rsaPrivateKey;
     private final String algorithm;
@@ -26,12 +33,20 @@ public class RsaDecryptService extends AbstractKeyParser {
 
         try {
             var cipher = Cipher.getInstance(cipherInstance);
-            cipher.init(Cipher.ENCRYPT_MODE, getPublicKey(rsaPrivateKey, algorithm));
+            cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
 
-            return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes()));
+            return new String(cipher.doFinal(Base64.getDecoder().decode(data.getBytes())));
         } catch (GeneralSecurityException e) {
             //TODO criar exception de negocio
             throw new RuntimeException(e);
         }
+    }
+
+    public Key getPrivateKey() throws InvalidKeySpecException, NoSuchAlgorithmException {
+        var bytes = DatatypeConverter.parseBase64Binary(rsaPrivateKey);
+        var keyFactory = KeyFactory.getInstance(algorithm);
+
+        var spec = new PKCS8EncodedKeySpec(bytes);
+        return keyFactory.generatePrivate(spec);
     }
 }
