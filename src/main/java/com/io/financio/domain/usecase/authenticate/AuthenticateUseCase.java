@@ -1,8 +1,12 @@
 package com.io.financio.domain.usecase.authenticate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
+import com.io.financio.domain.model.Session;
 import com.io.financio.domain.model.request.LoginUserRequest;
+import com.io.financio.domain.service.criptography.RsaEncryptService;
 import com.io.financio.domain.service.hashing.PasswordDigest;
+import com.io.financio.domain.service.session.CreateSessionService;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -12,18 +16,31 @@ public class AuthenticateUseCase {
 
     private final AuthenticateDataProvider dataProvider;
     private final PasswordDigest passwordDigest;
+    private final CreateSessionService sessionService;
+    private final RsaEncryptService encryptService;
+    private final ObjectMapper mapper;
 
-    public AuthenticateUseCase(AuthenticateDataProvider dataProvider, PasswordDigest passwordDigest) {
+    public AuthenticateUseCase(AuthenticateDataProvider dataProvider, PasswordDigest passwordDigest, CreateSessionService sessionService, RsaEncryptService encryptService, ObjectMapper mapper) {
         this.dataProvider = dataProvider;
         this.passwordDigest = passwordDigest;
+        this.sessionService = sessionService;
+        this.encryptService = encryptService;
+        this.mapper = mapper;
     }
 
     public String execute(LoginUserRequest userRequest) {
         var username = userRequest.getUsername();
         var encryptedPassword = digestPassword(userRequest);
 
-        //TODO criar token baseado no usuário encontrado e retornar
-        return dataProvider.execute(username, encryptedPassword).toString();
+        var user = dataProvider.execute(username, encryptedPassword);
+        var session = sessionService.execute(user);
+        var token = buildToken(session);
+
+        return token;
+    }
+
+    private String buildToken(Session session) {
+            return encryptService.execute(session.getId());
     }
 
     private String digestPassword(LoginUserRequest userRequest) {
