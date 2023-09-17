@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Builder
 public class UserDocument {
 
-    @Id
+    @MongoId
     private String id;
     private String username;
     private String password;
