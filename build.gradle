@@ -15,12 +15,6 @@ java {
 
 mainClassName = 'com.io.financio.FinancioApplication' // Specify your main class here
 
-jar {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-}
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
