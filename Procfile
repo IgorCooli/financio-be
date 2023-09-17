@@ -1,1 +1,1 @@
-web: java -jar -Dserver.port=8080  build/libs/financio-0.0.1-SNAPSHOT-plain.jar
+web: java -jar -Dserver.port=$PORT  build/libs/financio-0.0.1-SNAPSHOT-plain.ja
