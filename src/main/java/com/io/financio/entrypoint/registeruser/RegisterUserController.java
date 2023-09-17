@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.io.financio.entrypoint.constants.RestConstants.BASE_API;
 import static com.io.financio.entrypoint.constants.RestConstants.REGISTER_URL;
 
 @RestController
-@RequestMapping(BASE_API)
+@RequestMapping
 public class RegisterUserController {
 
     private final RegisterUserUseCase useCase;
