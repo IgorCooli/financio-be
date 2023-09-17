@@ -1,6 +1,5 @@
 package com.io.financio.domain.usecase.authenticate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
 import com.io.financio.domain.model.Session;
 import com.io.financio.domain.model.request.LoginUserRequest;
