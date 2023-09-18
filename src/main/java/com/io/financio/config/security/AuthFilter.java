@@ -16,6 +16,7 @@ import java.io.IOException;
 @Component
 public class AuthFilter extends GenericFilterBean {
 
+    private static final String AUTHORIZATION_HEADER = "authorization";
     private final RsaDecryptService decryptService;
     private final ValidateSessionDataProvider sessionDataProvider;
 
@@ -28,7 +29,7 @@ public class AuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         final var request = (HttpServletRequest) servletRequest;
         final var response = (HttpServletResponse) servletResponse;
-        final var authHeader = request.getHeader("authorization");
+        final var authHeader = request.getHeader(AUTHORIZATION_HEADER);
 
         if (authHeader == null) {
             //TODO trocar ex

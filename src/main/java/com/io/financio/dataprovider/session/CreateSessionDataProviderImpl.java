@@ -20,12 +20,15 @@ public class CreateSessionDataProviderImpl implements CreateSessionDataProvider 
 
     @Override
     public Session execute(String username, Set<String> scopes) {
-        var document = SessionDocument.builder()
+        return  repository.save(buildDocument(username, scopes))
+                .toDomain();
+    }
+
+    private SessionDocument buildDocument(String username, Set<String> scopes) {
+        return SessionDocument.builder()
                 .username(username)
                 .scopes(scopes)
                 .expirationDate(LocalDateTime.now())
                 .build();
-        return  repository.save(document)
-                .toDomain();
     }
 }
