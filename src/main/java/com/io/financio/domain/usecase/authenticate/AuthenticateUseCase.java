@@ -1,15 +1,17 @@
 package com.io.financio.domain.usecase.authenticate;
 
 import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
-import com.io.financio.domain.exception.DigestPassorException;
+import com.io.financio.domain.exception.DigestPasswordException;
 import com.io.financio.domain.model.Session;
 import com.io.financio.domain.model.request.LoginUserRequest;
 import com.io.financio.domain.service.criptography.RsaEncryptService;
 import com.io.financio.domain.service.hashing.PasswordDigest;
 import com.io.financio.domain.service.session.CreateSessionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthenticateUseCase {
 
     private final AuthenticateDataProvider dataProvider;
@@ -25,6 +27,8 @@ public class AuthenticateUseCase {
     }
 
     public String execute(LoginUserRequest userRequest) {
+        log.info("m=execute, msg='authenticating {}'", userRequest.getUsername());
+
         var username = userRequest.getUsername();
         var encryptedPassword = digestPassword(userRequest);
 
@@ -42,8 +46,7 @@ public class AuthenticateUseCase {
         try {
             return passwordDigest.execute(userRequest.getPassword());
         } catch (Exception e) {
-            //TODO logs
-            throw new DigestPassorException(e.getMessage());
+            throw new DigestPasswordException(e.getMessage());
         }
     }
 }

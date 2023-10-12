@@ -1,6 +1,7 @@
 package com.io.financio.domain.service.criptography;
 
 import com.io.financio.domain.exception.TokenEncryptionException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
+@Slf4j
 @Service
 public class RsaEncryptService {
 
@@ -30,14 +32,13 @@ public class RsaEncryptService {
     }
 
     public String execute(String data) {
-
+        log.info("m=execute, msg='encrypting token'");
         try {
             var cipher = Cipher.getInstance(cipherInstance);
             cipher.init(Cipher.ENCRYPT_MODE, getPublicKey());
 
             return Base64.getEncoder().encodeToString(cipher.doFinal(data.getBytes()));
         } catch (GeneralSecurityException e) {
-            //TODO logs
             throw new TokenEncryptionException(e.getMessage());
         }
     }

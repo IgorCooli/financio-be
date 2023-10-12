@@ -6,11 +6,13 @@ import com.io.financio.domain.model.User;
 import com.io.financio.domain.model.enums.UserStatus;
 import com.io.financio.domain.model.request.RegisterUserRequest;
 import com.io.financio.domain.service.hashing.PasswordDigest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class RegisterUserUseCase {
 
@@ -23,6 +25,7 @@ public class RegisterUserUseCase {
     }
 
     public void execute(RegisterUserRequest request) {
+        log.info("m=execute, msg='registering new user', username={}", request.getUsername());
         var user = buildUser(request);
 
         dataProvider.execute(user);
@@ -51,7 +54,6 @@ public class RegisterUserUseCase {
         try {
             return passwordDigest.execute(request.getPassword());
         } catch (Exception e) {
-            //TODO logs
             throw new PasswordHashingException(e.getMessage());
         }
     }

@@ -1,5 +1,6 @@
 package com.io.financio.domain.service.hashing;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Slf4j
 @Service
 public class PasswordDigest {
 
@@ -19,6 +21,7 @@ public class PasswordDigest {
     }
 
     public String execute(String password) throws NoSuchAlgorithmException {
+        log.info("m=execute, msg='digesting password'");
         var digestedMessage = MessageDigest
                 .getInstance(digestInstance)
                 .digest(password.getBytes());
