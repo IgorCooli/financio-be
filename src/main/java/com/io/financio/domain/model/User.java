@@ -15,6 +15,10 @@ public class User {
     private final String id;
     private final String username;
     private final String password;
+    private final String name;
+    private final String lastName;
+    private final String phoneNumber;
+    private final double monthlyRevenue;
     private final Set<String> scopes;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;

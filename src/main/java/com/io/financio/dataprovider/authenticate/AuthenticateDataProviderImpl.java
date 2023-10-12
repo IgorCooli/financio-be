@@ -1,17 +1,17 @@
-package com.io.financio.dataprovider.login;
+package com.io.financio.dataprovider.authenticate;
 
 import com.io.financio.dataprovider.model.UserDocument;
 import com.io.financio.dataprovider.repository.UserRepository;
-import com.io.financio.domain.dataprovider.login.LoginDataProvider;
+import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
 import com.io.financio.domain.model.User;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginDataProviderImpl implements LoginDataProvider {
+public class AuthenticateDataProviderImpl implements AuthenticateDataProvider {
 
     private final UserRepository repository;
 
-    public LoginDataProviderImpl(UserRepository repository) {
+    public AuthenticateDataProviderImpl(UserRepository repository) {
         this.repository = repository;
     }
 

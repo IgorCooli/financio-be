@@ -1,15 +1,10 @@
 package com.io.financio.entrypoint.hello;
 
-import com.io.financio.dataprovider.model.UserDocument;
 import com.io.financio.dataprovider.repository.UserRepository;
-import com.io.financio.domain.model.enums.UserStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
-import java.util.Set;
 
 import static com.io.financio.entrypoint.constants.RestConstants.BASE_API;
 import static com.io.financio.entrypoint.constants.RestConstants.HELLO_URL;
