@@ -1,6 +1,7 @@
 package com.io.financio.config.security;
 
 import com.io.financio.config.security.dataprovider.ValidateSessionDataProvider;
+import com.io.financio.domain.exception.AuthTokenNotReceivedException;
 import com.io.financio.domain.exception.SessionNotFoundException;
 import com.io.financio.domain.service.criptography.RsaDecryptService;
 import jakarta.servlet.FilterChain;
@@ -32,10 +33,10 @@ public class AuthFilter extends GenericFilterBean {
         final var response = (HttpServletResponse) servletResponse;
         final var authHeader = request.getHeader(AUTHORIZATION_HEADER);
 
-        if (authHeader == null) {
-            //TODO trocar ex
-            throw new ServletException("An exception occurred");
+        if (authHeader.isBlank()) {
+            throw new AuthTokenNotReceivedException("auth token was not received");
         }
+
         var sessionId = decryptService.execute(authHeader);
 
         try {

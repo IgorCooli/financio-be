@@ -1,5 +1,6 @@
 package com.io.financio.domain.service.criptography;
 
+import com.io.financio.domain.exception.InvalidTokenDataException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class RsaDecryptService {
 
             return new String(cipher.doFinal(Base64.getDecoder().decode(data.getBytes())));
         } catch (GeneralSecurityException e) {
-            //TODO criar exception de negocio
-            throw new RuntimeException(e);
+            //TODO logs
+            throw new InvalidTokenDataException(e.getMessage());
         }
     }
 
