@@ -1,6 +1,7 @@
 package com.io.financio.config.security;
 
 import com.io.financio.config.security.dataprovider.ValidateSessionDataProvider;
+import com.io.financio.domain.exception.SessionNotFoundException;
 import com.io.financio.domain.service.criptography.RsaDecryptService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,9 +40,9 @@ public class AuthFilter extends GenericFilterBean {
 
         try {
             sessionDataProvider.execute(sessionId);
-        } catch (Exception e) {
-            //TODO TROCAR EXCEPTION
-            throw new RuntimeException(e);
+        } catch (SessionNotFoundException ex) {
+            //TODO colocar logs
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
         filterChain.doFilter(request, response);

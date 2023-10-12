@@ -3,6 +3,7 @@ package com.io.financio.dataprovider.authenticate;
 import com.io.financio.dataprovider.model.UserDocument;
 import com.io.financio.dataprovider.repository.UserRepository;
 import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
+import com.io.financio.domain.exception.UserNotFoundException;
 import com.io.financio.domain.model.User;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,9 @@ public class AuthenticateDataProviderImpl implements AuthenticateDataProvider {
     public User execute(String username, String password) {
         var optDocument = repository.findByUsernameAndPassword(username, password);
 
-        //TODO ajustar o retorno abaixo
-        return buildUser(optDocument.get());
+        return optDocument
+                .map(this::buildUser)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
     }
 
     private User buildUser(UserDocument document) {
