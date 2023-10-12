@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories
 public class FinancioApplication {
 
+    //TODO distribuir logs pela app nos ajustes ja feitos
+    //TODO criar os testes unitários
     public static void main(String[] args) {
         SpringApplication.run(FinancioApplication.class, args);
     }
