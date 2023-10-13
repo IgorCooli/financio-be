@@ -17,3 +17,11 @@ crypt:
     algorithm: "RSA"
   sha256:
     digestInstance: "SHA-256"
+
+management:
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  health:
+    mongo:
+      enabled: true

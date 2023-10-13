@@ -38,16 +38,18 @@ public class AuthFilter extends GenericFilterBean {
         if (authHeader.isBlank()) {
             throw new AuthTokenNotReceivedException("auth token was not received");
         }
-
         var sessionId = decryptService.execute(authHeader);
+        validateSession(sessionId, response);
 
+        filterChain.doFilter(request, response);
+    }
+
+    private void validateSession(String sessionId, HttpServletResponse response) throws IOException {
         try {
             sessionDataProvider.execute(sessionId);
         } catch (SessionNotFoundException ex) {
             log.error("m=doFilter, msg={}", ex.getMessage());
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
-
-        filterChain.doFilter(request, response);
     }
 }

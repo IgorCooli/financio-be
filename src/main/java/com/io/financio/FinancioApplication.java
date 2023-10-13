@@ -12,5 +12,4 @@ public class FinancioApplication {
     public static void main(String[] args) {
         SpringApplication.run(FinancioApplication.class, args);
     }
-
 }
