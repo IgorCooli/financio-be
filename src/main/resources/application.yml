@@ -8,6 +8,20 @@ spring:
       password: rLuadVlqMLa5vYcS
       uri: mongodb+srv://${spring.data.mongodb.username}:${spring.data.mongodb.password}@cluster0.ddayyi8.mongodb.net/?retryWrites=true&w=majority
       database: financio
+  application:
+    name: financio-be
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  health:
+    mongo:
+      enabled: true
 
 crypt:
   rsa:
@@ -17,3 +31,4 @@ crypt:
     algorithm: "RSA"
   sha256:
     digestInstance: "SHA-256"
+
