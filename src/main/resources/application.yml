@@ -9,6 +9,15 @@ spring:
       uri: mongodb+srv://${spring.data.mongodb.username}:${spring.data.mongodb.password}@cluster0.ddayyi8.mongodb.net/?retryWrites=true&w=majority
       database: financio
 
+
+management:
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  health:
+    mongo:
+      enabled: true
+
 crypt:
   rsa:
     rsaPublicKey: "MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAqeROKpc1LPQ4Q2PLkRwxgmx6qmylO7kX1uTxNVpcRk7ptE+nw6rW82Kfrqeo7MFExbLuc3hiVCxFHVRPUzKUvZ+qkOtPvE3JZy4BBx910FZxQJ/AJ3QDLOVtbL66v/Xr/jwHSZbTyb2uMLc0lXDVyHl2D/hbskapvl7Qo8Q5zagAClX0B8eJA2ymVknKJzKMR6mKgLVE+kpnIByeMFQ1iQA44QalKJV9/T50mD7AvgWchu1P53FV/NlcE0epTAmmqPvrN5jP8nRgFgsdI1MG3nLEnYSFGEgHVvc/gI9gHoyqoQLJvLA0XcJ/6xdDx/eYg9iaA7aTNFsU1xXve+SvlbJniCqUwkRfJ29KwjjDiIuN3/B3VOCq4eLzdMxq9VyIdtSElt21VQVp1AT4XHWgpLXwFBc8tua6vxozTtAm6JrDOuaaAo/rb58zxomRLYIFwTBl2LprBhLvqBJ5mhmvaR2SHp+VdawymkRbMrMyMpRZZMratpmPSsY5EddAKjcjAgMBAAE="
@@ -18,10 +27,3 @@ crypt:
   sha256:
     digestInstance: "SHA-256"
 
-management:
-  endpoint:
-    health:
-      show-details: "ALWAYS"
-  health:
-    mongo:
-      enabled: true
