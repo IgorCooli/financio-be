@@ -1,5 +1,7 @@
 package com.io.financio.domain.service.criptography;
 
+import com.io.financio.domain.exception.InvalidTokenDataException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
+@Slf4j
 @Service
 public class RsaDecryptService {
 
@@ -29,15 +32,13 @@ public class RsaDecryptService {
     }
 
     public String execute(String data) {
-
         try {
             var cipher = Cipher.getInstance(cipherInstance);
             cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
 
             return new String(cipher.doFinal(Base64.getDecoder().decode(data.getBytes())));
         } catch (GeneralSecurityException e) {
-            //TODO criar exception de negocio
-            throw new RuntimeException(e);
+            throw new InvalidTokenDataException(e.getMessage());
         }
     }
 

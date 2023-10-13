@@ -1,16 +1,18 @@
 package com.io.financio.domain.usecase.registeruser;
 
 import com.io.financio.domain.dataprovider.registeruser.RegisterUserDataProvider;
+import com.io.financio.domain.exception.PasswordHashingException;
 import com.io.financio.domain.model.User;
 import com.io.financio.domain.model.enums.UserStatus;
 import com.io.financio.domain.model.request.RegisterUserRequest;
 import com.io.financio.domain.service.hashing.PasswordDigest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class RegisterUserUseCase {
 
@@ -23,6 +25,7 @@ public class RegisterUserUseCase {
     }
 
     public void execute(RegisterUserRequest request) {
+        log.info("m=execute, msg='registering new user', username={}", request.getUsername());
         var user = buildUser(request);
 
         dataProvider.execute(user);
@@ -50,9 +53,8 @@ public class RegisterUserUseCase {
     private String digestPassword(RegisterUserRequest request) {
         try {
             return passwordDigest.execute(request.getPassword());
-        } catch (NoSuchAlgorithmException e) {
-            //TODO criar exception de negocio
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new PasswordHashingException(e.getMessage());
         }
     }
 }

@@ -15,8 +15,6 @@ import static com.io.financio.entrypoint.constants.RestConstants.AUTHENTICATE_UR
 @RestController
 @RequestMapping
 public class AuthenticateController {
-
-    //TODO criar arquivo de mensagens
     public static final String LOGIN_SUCCESSFUL_FEEDBACK = "Login successful";
     private final AuthenticateUseCase useCase;
 
@@ -26,7 +24,6 @@ public class AuthenticateController {
 
     @PostMapping(AUTHENTICATE_URL)
     public ResponseEntity<String> login(@RequestBody LoginUserRequest request) {
-
         var token = useCase.execute(request);
 
         return new ResponseEntity<>(

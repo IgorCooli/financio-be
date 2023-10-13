@@ -1,16 +1,17 @@
 package com.io.financio.domain.usecase.authenticate;
 
 import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider;
+import com.io.financio.domain.exception.DigestPasswordException;
 import com.io.financio.domain.model.Session;
 import com.io.financio.domain.model.request.LoginUserRequest;
 import com.io.financio.domain.service.criptography.RsaEncryptService;
 import com.io.financio.domain.service.hashing.PasswordDigest;
 import com.io.financio.domain.service.session.CreateSessionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-
 @Service
+@Slf4j
 public class AuthenticateUseCase {
 
     private final AuthenticateDataProvider dataProvider;
@@ -26,6 +27,8 @@ public class AuthenticateUseCase {
     }
 
     public String execute(LoginUserRequest userRequest) {
+        log.info("m=execute, msg='authenticating {}'", userRequest.getUsername());
+
         var username = userRequest.getUsername();
         var encryptedPassword = digestPassword(userRequest);
 
@@ -42,9 +45,8 @@ public class AuthenticateUseCase {
     private String digestPassword(LoginUserRequest userRequest) {
         try {
             return passwordDigest.execute(userRequest.getPassword());
-        } catch (NoSuchAlgorithmException e) {
-            //TODO criar exception de negocio
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new DigestPasswordException(e.getMessage());
         }
     }
 }
