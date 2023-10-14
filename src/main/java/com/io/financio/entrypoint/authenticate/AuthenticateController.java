@@ -2,18 +2,16 @@ package com.io.financio.entrypoint.authenticate;
 
 import com.io.financio.domain.model.request.LoginUserRequest;
 import com.io.financio.domain.usecase.authenticate.AuthenticateUseCase;
+import com.io.financio.entrypoint.AbstractRestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.io.financio.entrypoint.constants.RestConstants.AUTHENTICATE_URL;
 
 @RestController
 @RequestMapping
-public class AuthenticateController {
+public class AuthenticateController extends AbstractRestController {
     private final AuthenticateUseCase useCase;
 
     public AuthenticateController(AuthenticateUseCase useCase) {

@@ -2,6 +2,7 @@ package com.io.financio.entrypoint.registeruser;
 
 import com.io.financio.domain.model.request.RegisterUserRequest;
 import com.io.financio.domain.usecase.registeruser.RegisterUserUseCase;
+import com.io.financio.entrypoint.AbstractRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import static com.io.financio.entrypoint.constants.RestConstants.REGISTER_URL;
 
 @RestController
 @RequestMapping
-public class RegisterUserController {
+public class RegisterUserController extends AbstractRestController {
 
     private final RegisterUserUseCase useCase;
 
