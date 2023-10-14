@@ -4,6 +4,7 @@ import com.io.financio.domain.dataprovider.authenticate.AuthenticateDataProvider
 import com.io.financio.domain.exception.DigestPasswordException;
 import com.io.financio.domain.model.Session;
 import com.io.financio.domain.model.request.LoginUserRequest;
+import com.io.financio.domain.model.response.AuthResponse;
 import com.io.financio.domain.service.criptography.RsaEncryptService;
 import com.io.financio.domain.service.hashing.PasswordDigest;
 import com.io.financio.domain.service.session.CreateSessionService;
@@ -26,7 +27,7 @@ public class AuthenticateUseCase {
         this.encryptService = encryptService;
     }
 
-    public String execute(LoginUserRequest userRequest) {
+    public AuthResponse execute(LoginUserRequest userRequest) {
         log.info("m=execute, msg='authenticating {}'", userRequest.getUsername());
 
         var username = userRequest.getUsername();
@@ -38,8 +39,10 @@ public class AuthenticateUseCase {
         return buildToken(session);
     }
 
-    private String buildToken(Session session) {
-            return encryptService.execute(session.getId());
+    private AuthResponse buildToken(Session session) {
+        var token = encryptService.execute(session.getId());
+
+        return new AuthResponse(token);
     }
 
     private String digestPassword(LoginUserRequest userRequest) {
