@@ -1,6 +1,7 @@
 package com.io.financio.entrypoint.hello;
 
 import com.io.financio.dataprovider.repository.UserRepository;
+import com.io.financio.entrypoint.AbstractRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import static com.io.financio.entrypoint.constants.RestConstants.HELLO_URL;
 
 @RestController
 @RequestMapping(BASE_API)
-public class HelloController {
+public class HelloController extends AbstractRestController {
 
     private final UserRepository repository;
 
